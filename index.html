@@ -8,89 +8,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Static Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Ninja Pricer</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <!-- Master Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Master
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="masterDropdown">
-                            <a class="dropdown-item" href="#">Competitor</a>
-                            <a class="dropdown-item" href="#">Product Listing</a>
-                        </div>
-                    </li>
-                    <!-- Setup Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Setup
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="setupDropdown">
-                            <a class="dropdown-item" href="#">Own Store</a>
-                            <a class="dropdown-item" href="#">Auto Pricing</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Dashboard Content Goes Here -->
-    <div class="container mt-4">
-        <!-- Hero Section -->
-        <div class="jumbotron">
-            <h1 class="display-4">Welcome to the Dashboard</h1>
-            <p class="lead">This is your dashboard description.</p>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">Chart 1</div>
-                    <div class="card-body">
-                        <canvas id="chart1"></canvas>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <form class="mt-5" action="home.html">
+                    <h2 class="text-center">Ninja Pricer Login</h2>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">Chart 2</div>
-                    <div class="card-body">
-                        <canvas id="chart2"></canvas>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Table Section -->
-        <div class="card mt-4">
-            <div class="card-header">Data Table</div>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Item 1</td>
-                            <td>42</td>
-                        </tr>
-                        <!-- Add more table rows here -->
-                    </tbody>
-                </table>
+                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                </form>
             </div>
         </div>
     </div>
@@ -99,35 +31,5 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <!-- Chart.js Configuration (sample) -->
-    <script>
-        var ctx1 = document.getElementById('chart1').getContext('2d');
-        var chart1 = new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: ['Label 1', 'Label 2', 'Label 3'],
-                datasets: [{
-                    label: 'Dataset 1',
-                    data: [10, 20, 30],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-        });
-
-        var ctx2 = document.getElementById('chart2').getContext('2d');
-        var chart2 = new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ['Label A', 'Label B', 'Label C'],
-                datasets: [{
-                    data: [30, 20, 10],
-                    backgroundColor: ['red', 'green', 'blue'],
-                }]
-            }
-        });
-    </script>
 </body>
 </html>
