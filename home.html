@@ -6,6 +6,8 @@
     <title>Ninja Pricer</title>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Static Bootstrap Navbar -->
@@ -52,7 +54,7 @@
 
         <!-- Charts Section -->
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">Chart 1</div>
                     <div class="card-body">
@@ -60,11 +62,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">Chart 2</div>
                     <div class="card-body">
                         <canvas id="chart2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">Chart 3</div>
+                    <div class="card-body">
+                        <canvas id="chart3"></canvas>
                     </div>
                 </div>
             </div>
@@ -126,6 +136,28 @@
                     data: [30, 20, 10],
                     backgroundColor: ['red', 'green', 'blue'],
                 }]
+            }
+        });
+
+        var ctx3 = document.getElementById('chart3').getContext('2d');
+        var lineChart = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+                datasets: [{
+                    label: 'Line Chart',
+                    data: [20, 25, 18, 30, 24],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
     </script>
