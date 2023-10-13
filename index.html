@@ -3,46 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Web Page</title>
+    <title>Ninja Pricer</title>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Static Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Your Website</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <!-- Master Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Master
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="masterDropdown">
-                            <a class="dropdown-item" href="#">Competitor</a>
-                            <a class="dropdown-item" href="#">Product Listing</a>
-                        </div>
-                    </li>
-                    <!-- Setup Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Setup
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="setupDropdown">
-                            <a class="dropdown-item" href="#">Own Store</a>
-                            <a class="dropdown-item" href="#">Auto Pricing</a>
-                        </div>
-                    </li>
-                </ul>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <form class="mt-5" action="home.html">
+                    <h2 class="text-center">Ninja Pricer Login</h2>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                </form>
             </div>
         </div>
-    </nav>
-
-    <!-- Your Page Content Goes Here -->
+    </div>
 
     <!-- Include Bootstrap JS (optional) -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
