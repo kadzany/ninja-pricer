@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitor List</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <!-- Static Bootstrap Navbar -->
+    @@include('../header.html')
+
+    <!-- Add New Competitor Button -->
+    <div class="container mt-4">
+        <a href="competitor_form.html" class="btn btn-primary">Add New Competitor</a>
+    </div>
+
+    <!-- Competitor List Table -->
+    <div class="container mt-4">
+        <h2>Competitor List</h2>
+        <table class="table table-striped" id="competitor-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Home URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be dynamically added here using JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript to Load Data -->
+    <script>
+        // Sample JSON data (you can replace this with your data)
+        var jsonData = [
+            { "name": "Competitor 1", "id": "12345", "home_url": "https://example1.com" },
+            { "name": "Competitor 2", "id": "67890", "home_url": "https://example2.com" },
+            { "name": "Competitor 3", "id": "13579", "home_url": "https://example3.com" }
+        ];
+
+        // Function to populate the table with data
+        function populateTable() {
+            const table = $('#competitor-table').DataTable({
+                paging: true, // Enable paging
+                pageLength: 10, // Number of rows per page
+            });
+
+            jsonData.forEach(competitor => {
+                const { name, id, home_url } = competitor;
+                const row = [
+                    name,
+                    id,
+                    `<a href="${home_url}">${home_url}</a>`
+                ];
+                table.row.add(row).draw(false);
+            });
+        }
+
+        // Call the function to populate the table
+        populateTable();
+    </script>
+</body>
+
+</html>

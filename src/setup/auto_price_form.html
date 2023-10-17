@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Auto Price</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <!-- Static Bootstrap Navbar -->
+    @@include('../header.html')
+
+    <!-- Add New Auto Price Form -->
+    <div class="container mt-4">
+        <h2>Add New Auto Price</h2>
+        <form action="auto_pricing.html">
+            <div class="form-group">
+                <label for="rule">Rule</label>
+                <input type="text" class="form-control" id="rule" name="rule" placeholder="Enter Rule">
+            </div>
+            <div class="form-group">
+                <label for="ruleName">Rule Name</label>
+                <input type="text" class="form-control" id="ruleName" name="ruleName" placeholder="Enter Rule Name">
+            </div>
+            <div class="form-group">
+                <label for="skus">SKUs</label>
+                <input type="text" class="form-control" id="skus" name="skus" placeholder="Enter SKUs">
+            </div>
+            <div class="form-group">
+                <label for="default">Default</label>
+                <select class="form-control" id="default" name="default">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Auto Price</button>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

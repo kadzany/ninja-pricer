@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,48 +9,50 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<body>
+
+<body class="d-flex flex-column h-100">
     <!-- Static Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Ninja Pricer</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <!-- Master Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Master
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="masterDropdown">
-                            <a class="dropdown-item" href="#">Competitor</a>
-                            <a class="dropdown-item" href="#">Product Listing</a>
-                        </div>
-                    </li>
-                    <!-- Setup Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Setup
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="setupDropdown">
-                            <a class="dropdown-item" href="#">Own Store</a>
-                            <a class="dropdown-item" href="#">Auto Pricing</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @@include('header.html')
 
     <!-- Dashboard Content Goes Here -->
     <div class="container mt-4">
-        <!-- Hero Section -->
-        <div class="jumbotron">
-            <h1 class="display-4">Welcome to the Dashboard</h1>
-            <p class="lead">This is your dashboard description.</p>
+        <!-- Card Sections with Icons Inline -->
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h1 class="text-left"><i class="fas fa-list-ul"></i> 19,551</h1>
+                        <p class="card-text">Listing and variations.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-body">
+                        <h1 class="text-left"><i class="fas fa-arrow-circle-up"></i> 391</h1>
+                        <p class="card-text">Prices above competitor.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-body">
+                        <h1 class="text-left"><i class="fas fa-level-down-alt"></i> 41</h1>
+                        <p class="card-text">Items at floor.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h1 class="text-left"><i class="fas fa-history"></i> 0</h1>
+                        <p class="card-text">Price Revisions (Last 24h)</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Charts Section -->
@@ -104,6 +107,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Sticky footer -->
+    @@include('footer.html')
 
     <!-- Include Bootstrap JS (optional) -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -162,4 +168,5 @@
         });
     </script>
 </body>
+
 </html>

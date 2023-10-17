@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Competitor</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!-- Static Bootstrap Navbar -->
+    @@include('../header.html')
+
+    <!-- Competitor Input Form -->
+    <div class="container mt-4">
+        <h2>Add New Competitor</h2>
+        <form action="/setup/competitor.html">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" placeholder="Enter ID">
+            </div>
+            <div class="form-group">
+                <label for="home_url">Home URL</label>
+                <input type="text" class="form-control" id="home_url" name="home_url" placeholder="Enter Home URL">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Competitor</button>
+        </form>
+    </div>
+
+    <!-- Sticky footer -->
+    @@include('../footer.html')
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Product</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!-- Static Bootstrap Navbar -->
+    @@include('../header.html')
+
+    <!-- Product Input Form -->
+    <div class="container mt-4">
+        <h2>Add New Product</h2>
+        <form action="/setup/product_listing.html">
+            <div class="form-group">
+                <label for="product_name">Product Name</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter Product Name">
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
+            </div>
+            <div class="form-group">
+                <label for="sku">SKU</label>
+                <input type="text" class="form-control" id="sku" name="sku" placeholder="Enter SKU">
+            </div>
+            <div class="form-group">
+                <label for="item_id">Item Id</label>
+                <input type="text" class="form-control" id="item_id" name="item_id" placeholder="Enter Item Id">
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" id="price" name="price" placeholder="Enter Price">
+            </div>
+            <div class="form-group">
+                <label for="shipping_cost">Shipping Cost</label>
+                <input type="text" class="form-control" id="shipping_cost" name="shipping_cost" placeholder="Enter Shipping Cost">
+            </div>
+            <div class="form-group">
+                <label for="qty_available">Qty Available</label>
+                <input type="text" class="form-control" id="qty_available" name="qty_available" placeholder="Enter Qty Available">
+            </div>
+            <div class="form-group">
+                <label for="floor_price">Floor Price</label>
+                <input type="text" class="form-control" id="floor_price" name="floor_price" placeholder="Enter Floor Price">
+            </div>
+            <div class="form-group">
+                <label for="ceiling_price">Ceiling Price</label>
+                <input type="text" class="form-control" id="ceiling_price" name="ceiling_price" placeholder="Enter Ceiling Price">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+
+    <!-- Sticky footer -->
+    @@include('../footer.html')
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

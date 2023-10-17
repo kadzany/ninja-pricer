@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Price Monitor</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<style>
+    table.dataTable.table-striped button {
+        z-index: unset;
+    }
+
+    table.dataTable.table-striped.DTFC_Cloned {
+        border-bottom: unset;
+        border-right: 1px solid #dee2e6;
+    }
+
+    table.dataTable.table-striped.DTFC_Cloned thead th {
+        background-color: white;
+        background-repeat: no-repeat;
+        background-position: center right;
+    }
+
+    table.dataTable.table-striped.DTFC_Cloned tbody tr:nth-of-type(odd) {
+        background: #F3F3F3;
+    }
+
+    table.dataTable.table-striped.DTFC_Cloned tbody tr:nth-of-type(even) {
+        background: white;
+    }
+
+    /* Set a minimum width of 200px for the Price column */
+    .table-xs-column {
+        min-width: 60px;
+    }
+
+    .table-sm-column {
+        min-width: 120px;
+    }
+
+    .table-md-column {
+        min-width: 300px;
+    }
+
+    .table-lg-column {
+        min-width: 400px;
+    }
+
+    /* Apply smaller text size to input elements */
+    .small-text-table th {
+        font-size: 0.75em;
+        font-weight: 600;
+    }
+
+    .small-text-table td {
+        font-size: 0.75em;
+        font-weight: 500;
+        /* Adjust the font size as needed */
+    }
+
+    .small-text-table input,
+    .small-text-table span,
+    .small-text-table button {
+        font-size: 1em;
+        /* Adjust the font size as needed */
+        font-weight: 500;
+    }
+
+    /* The switch - the box around the slider */
+    .switch-container {
+        min-width: 54px;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 36px;
+        height: 18px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 1px;
+        bottom: 1px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(18px);
+        -ms-transform: translateX(18px);
+        transform: translateX(18px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 14px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    /* Add styles for the icon */
+    .radar-label{
+        position: absolute;
+        top: 18px;
+    }
+    .radar-icon-off {
+        position: absolute;
+        top: 3px;
+        left: 20px;
+        /* Adjust the position as needed */
+        font-size: 11px;
+        /* Adjust the size as needed */
+        color: white;
+        /* Adjust the color as needed */
+    }
+
+    .radar-icon-on {
+        position: absolute;
+        top: 3px;
+        left: 2px;
+        /* Adjust the position as needed */
+        font-size: 11px;
+        /* Adjust the size as needed */
+        color: white;
+        /* Adjust the color as needed */
+    }
+
+    /* Add styles for the text */
+    .activate-text {
+        position: absolute;
+        top: 2px;
+        left: 45px;
+        /* Adjust the position as needed */
+        font-size: 12px;
+        /* Adjust the size as needed */
+        color: #000;
+        /* Adjust the color as needed */
+    }
+</style>
+
+
+<body class="d-flex flex-column h-100">
+    <!-- Static Bootstrap Navbar -->
+    @@include('../header.html')
+
+    <!-- Filter Options -->
+    <div class="container mt-4">
+        <!-- <h5>Filter Options</h5> -->
+        <!-- Add filter options here (e.g., dropdowns, inputs, etc.) -->
+        <!-- Example: -->
+        <div class="form-group">
+            <label for="store-filter">Store:</label>
+            <select id="store-filter" class="form-control">
+                <option value="">All Stores</option>
+                <option value="store1">Store 1</option>
+                <option value="store2">Store 2</option>
+                <!-- Add more store options as needed -->
+            </select>
+        </div>
+    </div>
+
+    <!-- Manage Listing Price Table -->
+    <div class="container-fluid mt-4">
+        <h2>Listing Price Monitor</h2>
+        <div class="table-responsive">
+            <table class="table table-striped small-text-table" id="listing-price-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="table-sm-column">Store Name</th>
+                        <th class="table-sm-column">Title</th>
+                        <th class="table-sm-column">SKU/Item ID</th>
+                        <th>Suspects</th>
+                        <th>Competitors</th>
+                        <th class="table-xs-column">Floor Price</th>
+                        <th class="table-xs-column">Ceiling Price</th>
+                        <th>Lowest Price</th>
+                        <th class="table-md-column">My Price</th>
+                        <th>Shipping</th>
+                        <th>Qty Available</th>
+                        <th>Total Sold</th>
+                        <th class="table-lg-column">My Search Keyword</th>
+                        <th class="table-lg-column">Competitor Item ID List</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be dynamically added here using JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Sticky footer -->
+    @@include('../footer.html')
+
+    <!-- Modal for viewing data -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Listing Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Left column -->
+                            <form>
+                                <div class="form-group">
+                                    <label for="storeNameModal">Store Name</label>
+                                    <input type="text" class="form-control" id="storeNameModal" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="titleModal">Title</label>
+                                    <input type="text" class="form-control" id="titleModal" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="skuModal">SKU/Item ID</label>
+                                    <input type="text" class="form-control" id="skuModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="suspectsModal">Suspects</label>
+                                    <input type="text" class="form-control" id="suspectsModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="competitorsModal">Competitors</label>
+                                    <input type="text" class="form-control" id="competitorsModal">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Right column -->
+                            <form>
+                                <div class="form-group">
+                                    <label for="floorPriceModal">Floor Price</label>
+                                    <input type="text" class="form-control" id="floorPriceModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ceilingPriceModal">Ceiling Price</label>
+                                    <input type="text" class="form-control" id="ceilingPriceModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lowestPriceModal">Lowest Price</label>
+                                    <input type="text" class="form-control" id="lowestPriceModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="priceModal">Price</label>
+                                    <input type="text" class="form-control" id="priceModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="shippingModal">Shipping</label>
+                                    <input type="text" class="form-control" id="shippingModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="qtyAvailableModal">Qty Available</label>
+                                    <input type="text" class="form-control" id="qtyAvailableModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="totalSoldModal">Total Sold</label>
+                                    <input type="text" class="form-control" id="totalSoldModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="keywordModal">Keyword</label>
+                                    <input type="text" class="form-control" id="keywordModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="competitorItemIdListModal">Competitor Item ID List</label>
+                                    <input type="text" class="form-control" id="competitorItemIdListModal">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        id="cancelButton">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for viewing history log -->
+    <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="historyModalLabel">View History Log</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped" id="historyLogTable">
+                        <thead>
+                            <tr>
+                                <th>Log Date</th>
+                                <th>Job ID</th>
+                                <th>Floor Price</th>
+                                <th>Old Price</th>
+                                <th>New Price</th>
+                                <th>Change</th>
+                                <th>Revision Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be dynamically added here using JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        id="cancelHistoryButton">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Include DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
+
+
+
+    <!-- JavaScript to Load Data and Initialize DataTables -->
+    <script>
+        // Sample JSON data (you can replace this with your data)
+        var jsonData = [
+            {
+                "storeName": "Store A",
+                "title": "Product 1",
+                "sku": "SKU001",
+                "suspects": 5,
+                "competitors": 3,
+                "floorPrice": "$20.00",
+                "ceilingPrice": "$40.00",
+                "lowestPrice": "$19.99",
+                "price": "$25.00",
+                "shipping": "$5.00",
+                "qtyAvailable": 50,
+                "totalSold": 20,
+                "keyword": "Keyword A",
+                "competitorItemIdList": "CompID001, CompID002"
+            },
+            {
+                "storeName": "Store B",
+                "title": "Product 2",
+                "sku": "SKU002",
+                "suspects": 3,
+                "competitors": 2,
+                "floorPrice": "$15.00",
+                "ceilingPrice": "$30.00",
+                "lowestPrice": "$14.99",
+                "price": "$22.00",
+                "shipping": "$4.00",
+                "qtyAvailable": 30,
+                "totalSold": 15,
+                "keyword": "Keyword B",
+                "competitorItemIdList": "CompID003, CompID004"
+            },
+            {
+                "storeName": "Store C",
+                "title": "Product 3",
+                "sku": "SKU003",
+                "suspects": 2,
+                "competitors": 1,
+                "floorPrice": "$25.00",
+                "ceilingPrice": "$50.00",
+                "lowestPrice": "$24.99",
+                "price": "$30.00",
+                "shipping": "$6.00",
+                "qtyAvailable": 40,
+                "totalSold": 25,
+                "keyword": "Keyword C",
+                "competitorItemIdList": "CompID005"
+            },
+            {
+                "storeName": "Store D",
+                "title": "Product 4",
+                "sku": "SKU004",
+                "suspects": 4,
+                "competitors": 2,
+                "floorPrice": "$30.00",
+                "ceilingPrice": "$60.00",
+                "lowestPrice": "$29.99",
+                "price": "$35.00",
+                "shipping": "$7.00",
+                "qtyAvailable": 60,
+                "totalSold": 30,
+                "keyword": "Keyword D",
+                "competitorItemIdList": "CompID006, CompID007"
+            },
+            {
+                "storeName": "Store E",
+                "title": "Product 5",
+                "sku": "SKU005",
+                "suspects": 3,
+                "competitors": 2,
+                "floorPrice": "$18.00",
+                "ceilingPrice": "$36.00",
+                "lowestPrice": "$17.99",
+                "price": "$24.00",
+                "shipping": "$4.50",
+                "qtyAvailable": 35,
+                "totalSold": 18,
+                "keyword": "Keyword E",
+                "competitorItemIdList": "CompID008, CompID009"
+            },
+            {
+                "storeName": "Store F",
+                "title": "Product 6",
+                "sku": "SKU006",
+                "suspects": 2,
+                "competitors": 1,
+                "floorPrice": "$22.00",
+                "ceilingPrice": "$44.00",
+                "lowestPrice": "$21.99",
+                "price": "$28.00",
+                "shipping": "$5.50",
+                "qtyAvailable": 45,
+                "totalSold": 22,
+                "keyword": "Keyword F",
+                "competitorItemIdList": "CompID010"
+            },
+            {
+                "storeName": "Store G",
+                "title": "Product 7",
+                "sku": "SKU007",
+                "suspects": 4,
+                "competitors": 3,
+                "floorPrice": "$24.00",
+                "ceilingPrice": "$48.00",
+                "lowestPrice": "$23.99",
+                "price": "$32.00",
+                "shipping": "$6.50",
+                "qtyAvailable": 55,
+                "totalSold": 24,
+                "keyword": "Keyword G",
+                "competitorItemIdList": "CompID011, CompID012, CompID013"
+            },
+            {
+                "storeName": "Store H",
+                "title": "Product 8",
+                "sku": "SKU008",
+                "suspects": 3,
+                "competitors": 2,
+                "floorPrice": "$19.00",
+                "ceilingPrice": "$38.00",
+                "lowestPrice": "$18.99",
+                "price": "$26.00",
+                "shipping": "$5.00",
+                "qtyAvailable": 40,
+                "totalSold": 19,
+                "keyword": "Keyword H",
+                "competitorItemIdList": "CompID014, CompID015"
+            },
+            {
+                "storeName": "Store I",
+                "title": "Product 9",
+                "sku": "SKU009",
+                "suspects": 5,
+                "competitors": 3,
+                "floorPrice": "$20.00",
+                "ceilingPrice": "$40.00",
+                "lowestPrice": "$19.99",
+                "price": "$25.00",
+                "shipping": "$5.00",
+                "qtyAvailable": 50,
+                "totalSold": 20,
+                "keyword": "Keyword I",
+                "competitorItemIdList": "CompID016, CompID017"
+            },
+            {
+                "storeName": "Store J",
+                "title": "Product 10",
+                "sku": "SKU010",
+                "suspects": 3,
+                "competitors": 2,
+                "floorPrice": "$15.00",
+                "ceilingPrice": "$30.00",
+                "lowestPrice": "$14.99",
+                "price": "$22.00",
+                "shipping": "$4.00",
+                "qtyAvailable": 30,
+                "totalSold": 15,
+                "keyword": "Keyword J",
+                "competitorItemIdList": "CompID018, CompID019"
+            },
+            {
+                "storeName": "Store K",
+                "title": "Product 11",
+                "sku": "SKU011",
+                "suspects": 2,
+                "competitors": 1,
+                "floorPrice": "$25.00",
+                "ceilingPrice": "$50.00",
+                "lowestPrice": "$24.99",
+                "price": "$30.00",
+                "shipping": "$6.00",
+                "qtyAvailable": 40,
+                "totalSold": 25,
+                "keyword": "Keyword K",
+                "competitorItemIdList": "CompID020"
+            },
+        ];
+
+        // Function to populate the table with data
+        function populateTable() {
+            var table = $('#listing-price-table').DataTable({
+                paging: true, // Enable paging
+                pageLength: 5, // Number of rows per page
+                lengthMenu: [5, 10, 25, 50], // Define available options for the dropdown
+                scrollX: true, // Enable horizontal scrolling
+                fixedColumns: {
+                    leftColumns: 4, // Number of columns to lock on the left
+                },
+            });
+
+            jsonData.forEach(function (listing) {
+                // Create the buttons with Font Awesome icons
+                var buttonStyle = 'btn btn-sm btn-block btn-primary';
+                var viewEditButton = `<div class="mb-1"><button class="${buttonStyle}" id="viewEditButton" title="View/Edit" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button></div>`;
+                var viewLogButton = `<div class="mb-1"><button class="${buttonStyle}" id="viewLogButton" title="View Log" data-toggle="modal" data-target="#historyModal"><i class="fas fa-eye"></i></button></div>`;
+                var manageCategoryButton = `<div class="mb-1"><button class="${buttonStyle}" title="Manage Category/Tag"><i class="fas fa-tags"></i></button></div>`;
+
+                var skuInput = `<a href="javascript:void(0);" class="sku-link" data-sku="${listing.sku}">
+                                    ${listing.sku}
+                                </a>`;
+                var suspectsInput = `<input class="form-control" type="text" value="${listing.floorPrice}">`;
+                var competitorInput = `<input class="form-control" type="text" value="${listing.ceilingPrice}">`;
+                var floorPriceInput = `<input class="form-control" type="text" value="${listing.floorPrice}">`;
+                var ceilingPriceInput = `<input class="form-control" type="text" value="${listing.ceilingPrice}">`;
+                var priceInput = `                              
+                <input class="form-control" type="hidden" value="${listing.price}">
+                <div class="input-group">   
+                    <!-- Rounded switch -->
+                    <div class="switch-container">   
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                        <i class="fa fa-wifi radar-icon-on"></i>
+                        <!--<i class="fa fa-eye-slash radar-icon-off"></i>-->
+                        <span class="text-muted radar-label">Auto</span>
+                    </label>
+                    </div>
+                    <div class="input-group-prepend">                        
+                        <span class="input-group-text">${listing.price}</span>
+                    </div>      
+                    <select class="custom-select w-80" id="inputGroupSelect03" aria-label="Example select with button addon">
+                        <option selected>Choose</option>
+                        <option value="1">Default Rule</option>
+                        <option value="2">Competitor Rule</option>
+                        <option value="3">Velocity Rule</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button">Apply</button>
+                    </div>
+                </div>
+                `;
+                var shippingInput = `<input class="form-control" type="text" value="${listing.shipping}">`;
+                var qtyAvailableInput = `<input class="form-control" type="text" value="${listing.qtyAvailable}">`;
+                var keywordInput = `<input class="form-control" type="text" value="${listing.keyword}">`;
+                var competitorItemIdListInput = `<input class="form-control" type="text" value="${listing.competitorItemIdList}">`;
+
+                table.row.add([
+                    viewEditButton + ' ' + viewLogButton + ' ' + manageCategoryButton, // Add buttons to the "Action" column
+                    listing.storeName,
+                    listing.title,
+                    skuInput,
+                    listing.suspects,
+                    listing.competitors,
+                    floorPriceInput,
+                    ceilingPriceInput,
+                    listing.lowestPrice,
+                    priceInput,
+                    shippingInput,
+                    qtyAvailableInput,
+                    listing.totalSold,
+                    keywordInput,
+                    competitorItemIdListInput
+                ]).draw(false);
+            });
+        }
+
+        // Function to extract the value from an HTML string
+        function extractValueFromHTML(htmlString) {
+            // Create a temporary element
+            var tempElement = $('<div>').html(htmlString);
+
+            // Use .find() to locate the input element and get its value
+            var value = tempElement.find('input').val();
+
+            return value;
+        }
+
+        // When "View/Edit" button is clicked, populate the modal with row data
+        $('#listing-price-table').on('click', '#viewEditButton', function () {
+            if ($(this).data('toggle') === 'modal') {
+                var row = $(this).closest('tr');
+                var rowData = $('#listing-price-table').DataTable().row(row).data();
+
+                // Populate the modal form fields with the row data
+                $('#storeNameModal').val(rowData[1]);
+                $('#titleModal').val(rowData[2]);
+                $('#skuModal').val(rowData[3]);
+                $('#suspectsModal').val(rowData[4]);
+                $('#competitorsModal').val(rowData[5]);
+                $('#floorPriceModal').val(extractValueFromHTML(rowData[6]));
+                $('#ceilingPriceModal').val(extractValueFromHTML(rowData[7]));
+                $('#lowestPriceModal').val(rowData[8]);
+                $('#priceModal').val(extractValueFromHTML(rowData[9]));
+                $('#shippingModal').val(extractValueFromHTML(rowData[10]));
+                $('#qtyAvailableModal').val(extractValueFromHTML(rowData[11]));
+                $('#totalSoldModal').val(rowData[12]);
+                $('#keywordModal').val(extractValueFromHTML(rowData[13]));
+                $('#competitorItemIdListModal').val(extractValueFromHTML(rowData[14]));
+            }
+        });
+
+        // Close the modal when the "Cancel" button is pressed
+        $('#cancelButton').click(function () {
+            $('#editModal').modal('hide');
+        });
+
+        // Close the modal when the "Save" button is pressed
+        $('#saveButton').click(function () {
+            $('#editModal').modal('hide');
+        });
+
+        // JavaScript to load history log content when "View History" button is clicked
+        $('#listing-price-table').on('click', '#viewLogButton', function () {
+            var row = $(this).closest('tr');
+            var rowData = $('#listing-price-table').DataTable().row(row).data();
+
+            // Replace this sample data with your actual history log data retrieval logic
+            var historyLogData = [
+                {
+                    logDate: '2023-01-15 10:30:00',
+                    jobId: '12345',
+                    floorPrice: '$19.99',
+                    oldPrice: '$20.00',
+                    newPrice: '$18.99',
+                    change: '-$1.01',
+                    revisionDetail: 'Price decreased for promotion.'
+                },
+                {
+                    logDate: '2023-01-16 09:45:00',
+                    jobId: '12346',
+                    floorPrice: '$18.99',
+                    oldPrice: '$19.00',
+                    newPrice: '$18.50',
+                    change: '-$0.50',
+                    revisionDetail: 'Price adjustment based on market trends.'
+                },
+                {
+                    logDate: '2023-01-17 11:15:00',
+                    jobId: '12347',
+                    floorPrice: '$18.50',
+                    oldPrice: '$18.50',
+                    newPrice: '$18.50',
+                    change: '$0.00',
+                    revisionDetail: 'Price remains the same.'
+                },
+                {
+                    logDate: '2023-01-18 14:20:00',
+                    jobId: '12348',
+                    floorPrice: '$18.50',
+                    oldPrice: '$18.50',
+                    newPrice: '$18.60',
+                    change: '+$0.10',
+                    revisionDetail: 'Slight price increase for better profit margin.'
+                },
+                {
+                    logDate: '2023-01-19 12:40:00',
+                    jobId: '12349',
+                    floorPrice: '$18.60',
+                    oldPrice: '$18.60',
+                    newPrice: '$18.70',
+                    change: '+$0.10',
+                    revisionDetail: 'Another slight price increase for demand.'
+                }
+            ];
+
+            // Clear the previous content and populate the history log DataTable
+            var historyLogTable = $('#historyLogTable').DataTable();
+            historyLogTable.clear().draw();
+
+            historyLogData.forEach(function (logEntry) {
+                historyLogTable.row.add([
+                    logEntry.logDate,
+                    logEntry.jobId,
+                    logEntry.floorPrice,
+                    logEntry.oldPrice,
+                    logEntry.newPrice,
+                    logEntry.change,
+                    logEntry.revisionDetail
+                ]).draw(false);
+            });
+
+            // Show the history modal
+            $('#historyModal').modal('show');
+        });
+
+        // Add a click event listener to the SKU/Item ID links
+        $('#listing-price-table tbody').on('click', 'a.sku-link', function () {
+            // Extract the SKU from the clicked link
+            var sku = $(this).data('sku');
+
+            // Navigate to the new page with the SKU as a parameter
+            window.location.href = '/pricer/product_price_monitor.html?sku=' + sku;
+        });
+
+        // Call the function to populate the table
+        populateTable();
+    </script>
+</body>
+
+</html>
