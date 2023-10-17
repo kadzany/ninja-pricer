@@ -1,1 +1,111 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Add New Auto Price</title><!-- Include Bootstrap CSS --><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></head><body><!-- Static Bootstrap Navbar --><style>.user-avatar{height: 36px;width: 36x;}</style><header><nav class="navbar navbar-expand-lg navbar-light bg-light"><div class="container"><a class="navbar-brand" href="/home.html"><img href="img/logo.jpeg" alt="Logo" width="50" height="50"><!-- Add your logo image and adjust the width and height as needed -->Ninja Pricer</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav"><!-- Pricer Menu --><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="pricerDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pricer</a><div class="dropdown-menu" aria-labelledby="pricerDropdown"><a class="dropdown-item" href="pricer/listing_price_monitor.html">Listing Price Monitor</a><!-- <a class="dropdown-item" href="#">Competitor Locking</a> --></div></li><!-- Setup Menu --><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Setup</a><div class="dropdown-menu" aria-labelledby="setupDropdown"><a class="dropdown-item" href="setup/auto_pricing.html">Auto Pricing Setup</a><a class="dropdown-item" href="setup/my_stores.html">My Stores</a><a class="dropdown-item" href="setup/product_listing.html">My Product Listings</a><a class="dropdown-item" href="setup/competitor.html">Competitors</a></div></li></ul><ul class="navbar-nav ml-auto"><li class="nav-item dropdown ml-auto"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img href="img/avatar.jpg" alt="User Avatar" class="user-avatar rounded-circle"><!-- Add your user's picture or initials --></a><div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown"><a class="dropdown-item" href="#">Preferences</a><a class="dropdown-item" href="#">Account & Billing</a><div class="dropdown-divider"></div><a class="dropdown-item" href="#">Logout</a></div></li></ul></div></nav></header><!-- Add New Auto Price Form --><div class="container mt-4"><h2>Add New Auto Price</h2><form action="auto_pricing.html"><div class="form-group"><label for="rule">Rule</label><input type="text" class="form-control" id="rule" name="rule" placeholder="Enter Rule"></div><div class="form-group"><label for="ruleName">Rule Name</label><input type="text" class="form-control" id="ruleName" name="ruleName" placeholder="Enter Rule Name"></div><div class="form-group"><label for="skus">SKUs</label><input type="text" class="form-control" id="skus" name="skus" placeholder="Enter SKUs"></div><div class="form-group"><label for="default">Default</label><select class="form-control" id="default" name="default"><option value="Yes">Yes</option><option value="No">No</option></select></div><button type="submit" class="btn btn-primary">Add Auto Price</button></form></div><!-- Include Bootstrap JS (optional) --><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Auto Price</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <!-- Static Bootstrap Navbar -->
+    <style>
+    .user-avatar{
+        height: 36px;
+        width: 36x;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">
+                <img href="img/logo.jpeg" alt="Logo" width="50" height="50">
+                <!-- Add your logo image and adjust the width and height as needed -->
+                Ninja Pricer
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <!-- Pricer Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="pricerDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Pricer
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="pricerDropdown">
+                            <a class="dropdown-item" href="pricer/listing_price_monitor.html">Listing Price Monitor</a>
+                            <!-- <a class="dropdown-item" href="#">Competitor Locking</a> -->
+                        </div>
+                    </li>
+                    <!-- Setup Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Setup
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="setupDropdown">
+                            <a class="dropdown-item" href="setup/auto_pricing.html">Auto Pricing Setup</a>
+                            <a class="dropdown-item" href="setup/my_stores.html">My Stores</a>
+                            <a class="dropdown-item" href="setup/product_listing.html">My Product Listings</a>
+                            <a class="dropdown-item" href="setup/competitor.html">Competitors</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown ml-auto">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img href="img/avatar.jpg" alt="User Avatar" class="user-avatar rounded-circle">
+                            <!-- Add your user's picture or initials -->
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">Preferences</a>
+                            <a class="dropdown-item" href="#">Account & Billing</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+    </nav>
+</header>
+
+    <!-- Add New Auto Price Form -->
+    <div class="container mt-4">
+        <h2>Add New Auto Price</h2>
+        <form action="auto_pricing.html">
+            <div class="form-group">
+                <label for="rule">Rule</label>
+                <input type="text" class="form-control" id="rule" name="rule" placeholder="Enter Rule">
+            </div>
+            <div class="form-group">
+                <label for="ruleName">Rule Name</label>
+                <input type="text" class="form-control" id="ruleName" name="ruleName" placeholder="Enter Rule Name">
+            </div>
+            <div class="form-group">
+                <label for="skus">SKUs</label>
+                <input type="text" class="form-control" id="skus" name="skus" placeholder="Enter SKUs">
+            </div>
+            <div class="form-group">
+                <label for="default">Default</label>
+                <select class="form-control" id="default" name="default">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Auto Price</button>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
