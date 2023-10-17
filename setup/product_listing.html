@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Product List</title><!-- Include Bootstrap CSS --><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"><!-- Include DataTables CSS --><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"></head><body><!-- Static Bootstrap Navbar --><style>.user-avatar{height: 36px;width: 36x;}</style><header><nav class="navbar navbar-expand-lg navbar-light bg-light"><div class="container"><a class="navbar-brand" href="/home.html"><img src="/img/logo.jpeg" alt="Logo" width="50" height="50"><!-- Add your logo image and adjust the width and height as needed -->Ninja Pricer</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav"><!-- Pricer Menu --><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="pricerDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pricer</a><div class="dropdown-menu" aria-labelledby="pricerDropdown"><a class="dropdown-item" href="/pricer/listing_price_monitor.html">Listing Price Monitor</a><!-- <a class="dropdown-item" href="#">Competitor Locking</a> --></div></li><!-- Setup Menu --><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="setupDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Setup</a><div class="dropdown-menu" aria-labelledby="setupDropdown"><a class="dropdown-item" href="/setup/auto_pricing.html">Auto Pricing Setup</a><a class="dropdown-item" href="/setup/my_stores.html">My Stores</a><a class="dropdown-item" href="/setup/product_listing.html">My Product Listings</a><a class="dropdown-item" href="/setup/competitor.html">Competitors</a></div></li></ul><ul class="navbar-nav ml-auto"><li class="nav-item dropdown ml-auto"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/img/avatar.jpg" alt="User Avatar" class="user-avatar rounded-circle"><!-- Add your user's picture or initials --></a><div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown"><a class="dropdown-item" href="#">Preferences</a><a class="dropdown-item" href="#">Account & Billing</a><div class="dropdown-divider"></div><a class="dropdown-item" href="#">Logout</a></div></li></ul></div></nav></header><!-- Add New Product Button --><div class="container mt-4"><a href="product_listing_form.html" class="btn btn-primary">Add New Product</a></div><!-- Product List Table --><div class="container mt-4"><h2>Product List</h2><table class="table table-striped" id="product-table"><thead><tr><th>Product Name</th><th>Title</th><th>SKU</th><th>Item Id</th><th>Price</th><th>Shipping Cost</th><th>Qty Available</th><th>Floor Price</th><th>Ceiling Price</th></tr></thead><tbody><!-- Data will be dynamically added here using JavaScript --></tbody></table></div><!-- Include Bootstrap JS (optional) --><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script><script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script><!-- JavaScript to Load Data --><script>var jsonData = [
+// Your existing data
+{
+"product_name": "Product 4",
+"title": "Product Title 4",
+"sku": "SKU987",
+"item_id": 13579,
+"price": "$34.99",
+"shipping_cost": "$8.00",
+"qty_available": 40,
+"floor_price": "$30.99",
+"ceiling_price": "$40.99"
+},
+{
+"product_name": "Product 5",
+"title": "Product Title 5",
+"sku": "SKU246",
+"item_id": 35791,
+"price": "$39.99",
+"shipping_cost": "$9.00",
+"qty_available": 60,
+"floor_price": "$35.99",
+"ceiling_price": "$45.99"
+},
+{
+"product_name": "Product 6",
+"title": "Product Title 6",
+"sku": "SKU357",
+"item_id": 46802,
+"price": "$44.99",
+"shipping_cost": "$10.00",
+"qty_available": 20,
+"floor_price": "$40.99",
+"ceiling_price": "$50.99"
+},
+{
+"product_name": "Product 7",
+"title": "Product Title 7",
+"sku": "SKU468",
+"item_id": 57913,
+"price": "$49.99",
+"shipping_cost": "$11.00",
+"qty_available": 10,
+"floor_price": "$45.99",
+"ceiling_price": "$55.99"
+},
+{
+"product_name": "Product 8",
+"title": "Product Title 8",
+"sku": "SKU579",
+"item_id": 68024,
+"price": "$54.99",
+"shipping_cost": "$12.00",
+"qty_available": 35,
+"floor_price": "$50.99",
+"ceiling_price": "$60.99"
+},
+{
+"product_name": "Product 9",
+"title": "Product Title 9",
+"sku": "SKU680",
+"item_id": 79135,
+"price": "$59.99",
+"shipping_cost": "$13.00",
+"qty_available": 15,
+"floor_price": "$55.99",
+"ceiling_price": "$65.99"
+},
+{
+"product_name": "Product 10",
+"title": "Product Title 10",
+"sku": "SKU791",
+"item_id": 80246,
+"price": "$64.99",
+"shipping_cost": "$14.00",
+"qty_available": 48,
+"floor_price": "$60.99",
+"ceiling_price": "$70.99"
+},
+{
+"product_name": "Product 11",
+"title": "Product Title 11",
+"sku": "SKU802",
+"item_id": 91357,
+"price": "$69.99",
+"shipping_cost": "$15.00",
+"qty_available": 22,
+"floor_price": "$65.99",
+"ceiling_price": "$75.99"
+},
+{
+"product_name": "Product 12",
+"title": "Product Title 12",
+"sku": "SKU913",
+"item_id": 102468,
+"price": "$74.99",
+"shipping_cost": "$16.00",
+"qty_available": 9,
+"floor_price": "$70.99",
+"ceiling_price": "$80.99"
+},
+{
+"product_name": "Product 13",
+"title": "Product Title 13",
+"sku": "SKU1024",
+"item_id": 113579,
+"price": "$79.99",
+"shipping_cost": "$17.00",
+"qty_available": 27,
+"floor_price": "$75.99",
+"ceiling_price": "$85.99"
+},
+{
+"product_name": "Product 14",
+"title": "Product Title 14",
+"sku": "SKU1135",
+"item_id": 124680,
+"price": "$84.99",
+"shipping_cost": "$18.00",
+"qty_available": 37,
+"floor_price": "$80.99",
+"ceiling_price": "$90.99"
+},
+{
+"product_name": "Product 15",
+"title": "Product Title 15",
+"sku": "SKU1246",
+"item_id": 135791,
+"price": "$89.99",
+"shipping_cost": "$19.00",
+"qty_available": 6,
+"floor_price": "$85.99",
+"ceiling_price": "$95.99"
+},
+{
+"product_name": "Product 16",
+"title": "Product Title 16",
+"sku": "SKU1357",
+"item_id": 146802,
+"price": "$94.99",
+"shipping_cost": "$20.00",
+"qty_available": 18,
+"floor_price": "$90.99",
+"ceiling_price": "$100.99"
+},
+{
+"product_name": "Product 17",
+"title": "Product Title 17",
+"sku": "SKU1468",
+"item_id": 157913,
+"price": "$99.99",
+"shipping_cost": "$21.00",
+"qty_available": 12,
+"floor_price": "$95.99",
+"ceiling_price": "$110.99"
+},
+{
+"product_name": "Product 18",
+"title": "Product Title 18",
+"sku": "SKU1579",
+"item_id": 168024,
+"price": "$104.99",
+"shipping_cost": "$22.00",
+"qty_available": 33,
+"floor_price": "$100.99",
+"ceiling_price": "$120.99"
+},
+{
+"product_name": "Product 19",
+"title": "Product Title 19",
+"sku": "SKU1680",
+"item_id": 179135,
+"price": "$109.99",
+"shipping_cost": "$23.00",
+"qty_available": 8,
+"floor_price": "$105.99",
+"ceiling_price": "$130.99"
+},
+{
+"product_name": "Product 20",
+"title": "Product Title 20",
+"sku": "SKU1791",
+"item_id": 180246,
+"price": "$114.99",
+"shipping_cost": "$24.00",
+"qty_available": 45,
+"floor_price": "$110.99",
+"ceiling_price": "$140.99"
+}
+];
+// Function to populate the table with data
+function populateTable() {
+const table = $('#product-table').DataTable({
+paging: true, // Enable paging
+pageLength: 10, // Number of rows per page
+});
+jsonData.forEach(product => {
+const { product_name, title, sku, item_id, price, shipping_cost, qty_available, floor_price, ceiling_price } = product;
+const row = [
+product_name,
+title,
+sku,
+item_id,
+price,
+shipping_cost,
+qty_available,
+floor_price,
+ceiling_price
+];
+table.row.add(row).draw(false);
+});
+}
+// Call the function to populate the table
+populateTable();</script></body></html>
